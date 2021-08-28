@@ -1,0 +1,64 @@
+<div class="divColorContainer">
+  <div class="Blue"></div>
+  <div class="Green"></div>
+  <div class="Blue"></div>
+</div>
+I have a button, when clicked I want to push that attribute into a array to compare for a score function later.
+
+I attempted element.push($(.divColorContainer).attr(.Blue) and many other fetch.
+
+How do I select/push the first Blue class when the button is clicked once, then when clicked again, retrieves the next Blue class?
+
+If you're wandering why. Its for a memory game.
+0
+
+About selector you can use $('.divColorContainer .Blue:eq('+Index+')') to determine the element by its index using :eq() or nth-child() or using jquery .eq()
+
+And I don't know which attribute you are talking about .. But you can use something like this
+
+$(document).ready(function(){
+  var Index = 0;
+  $('.selectBlue').on('click',function(){
+    // you can here make whatever you want 
+    // for example addClass();
+    $('.divColorContainer .Blue:eq('+Index+')').addClass('bg');
+    Index++;
+  });
+});
+.bg{
+  background : blue;
+  color: #fff;
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<div class="divColorContainer">
+  <div class="Blue">Blue</div>
+  <div class="Green">Green</div>
+  <div class="Blue">Blue</div>
+</div>
+<button type="button" class="selectBlue">Select Blue Class</button>
+0
+
+This is my first Stack Overflow answer, and I'm not entirely clear on what you're trying to do, but I hope I can help.
+
+If it's a memory game, you'd probably want to keep track of which element is clicked, not just the class name, since they're reused.
+
+Regardless, to store the class names of clicked elements to an array, you could maybe use something like:
+
+var classArray = [];
+$('.divColorContainer').children('div').each(function(){
+    classArray.push($(this).attr('class')); // To save the class names
+}):
+To get the index of each item clicked, you could add a repeated class to each element.
+
+Example:
+
+<div class="color Blue">Blue</div>
+Or just target them with:
+
+$('divColorContainer').children('div').on('click', function({}));
+And then set a click event to that class to get the index of the clicked element (0 based index within its parent). You could use something like this:
+
+var colorArray = [];
+$('.color').on('click', function(){
+    colorArray.push($(this).index());
+});
